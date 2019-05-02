@@ -19,10 +19,12 @@ command line.
 import acoustid
 import sys
 import os
+from dotenv import load_dotenv
 
 # API key for this demo script only. Get your own API key at the
 # Acoustid Web for your application.
 # http://acoustid.org/
+load_dotenv()
 API_KEY = os.getenv("key")
 
 
@@ -53,14 +55,10 @@ def aidmatch(filename):
         sys.exit(1)
 
     first = True
-    for score, rid, title, artist in results:
-        if first:
-            first = False
-        else:
-            print()
-        print_('%s - %s' % (artist, title))
-        print_('http://musicbrainz.org/recording/%s' % rid)
-        print_('Score: %i%%' % (int(score * 100)))
+    x = []
+    for s, r, t, a in results:
+        x.append({'score':s, 'rid':r, 'title':t, 'artist':a})
+    return x
 
 
 if __name__ == '__main__':
