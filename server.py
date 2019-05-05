@@ -7,10 +7,9 @@ app = Flask(__name__)
 def test_route():
     return "test successfull"
 
-@app.route("/tag/<file_name>")
-def tag_song(file_name):
-    path = "songs/"
-    result = aidmatch(path + file_name + '.mp3')
+@app.route("/tag/<path>")
+def tag_song(path):
+    result = aidmatch(path)
     return jsonify({ 'result': result })
 
 if __name__ == "__main__":
